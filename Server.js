@@ -9,8 +9,13 @@ import orderRoutes from './routes/orderRoutes.js'
 
 const PORT = 3000;
 const app = express();
-app.use(cors({origin:
+
+const allowedOrigins = [
     'https://mern-ecommerce-frontend-bice.vercel.app/',
+    'http://localhost:5173'
+]
+app.use(cors({
+    origin: allowedOrigins,
     methods: ['GET','POST','PUT','DELETE'],
     credentials: true
 }));
