@@ -1,9 +1,9 @@
-const { validationResult } = require("express-validator");
-const User = require("../models/User");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import { validationResult } from "express-validator";
+import User from "../models/User.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
-exports.registerUser = async (req, res) => {
+export const registerUser = async (req, res) => {
     try {
         // ✅ First safely log the raw body
         console.log("Request body:", req.body);
@@ -56,7 +56,7 @@ exports.registerUser = async (req, res) => {
 };
 
 
-exports.loginUser = async (req,res)=>{
+export const loginUser = async (req,res)=>{
     const {email, password} = req.body;
     try {
         const userExist = await User.findOne({email});

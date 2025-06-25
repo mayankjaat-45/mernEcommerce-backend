@@ -1,17 +1,22 @@
-const express = require("express")
-const dotenv = require("dotenv");
-const cors = require("cors");
+import express from 'express'
+import dotenv from "dotenv";
+import cors from 'cors'
 dotenv.config();
-const userRoutes = require("./routes/userRoutes");
-const productRoutes = require("./routes/productRoutes");
-const connectDb = require("./config");
+import productRoutes  from './routes/productRoutes.js';
+import userRoutes from "./routes/userRoutes.js";
+import connectDb from './config.js';
+import orderRoutes from './routes/orderRoutes.js'
 
 const app = express();
-app.use(cors());
+app.use(cors({origin:
+    'http://localhost:5173',
+    credentials: true
+}));
 app.use(express.json());
 
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/orders' , orderRoutes);
 
 connectDb().then(()=>{
     app.listen(3000, ()=>{
