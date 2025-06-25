@@ -7,19 +7,21 @@ import userRoutes from "./routes/userRoutes.js";
 import connectDb from './config.js';
 import orderRoutes from './routes/orderRoutes.js'
 
-const PORT = 3000;
 const app = express();
+const PORT = process.env.PORT ||  3000;
+app.use(express.json());
+app.use(express.urlencoded({extended:true}))
 
 const allowedOrigins = [
     'https://mern-ecommerce-frontend-bice.vercel.app/',
-    'http://localhost:5173'
+    process.env.FRONTEND_URL
 ]
 app.use(cors({
     origin: allowedOrigins,
     methods: ['GET','POST','PUT','DELETE'],
-    credentials: true
+    credentials: true,
+    allowedHeaders:['Content-Type', 'Authorization']
 }));
-app.use(express.json());
 
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
